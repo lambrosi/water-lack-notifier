@@ -10,16 +10,13 @@ public class CaptchaProvider {
 
     private final WebDriver webDriver;
     private final String url;
-    private final String userKey;
     private final String scriptCommand;
 
     public CaptchaProvider(final WebDriver webDriver,
                            @Value("${app.captcha.url}") final String url,
-                           @Value("${app.captcha.user-key}") final String userKey,
                            @Value("${app.captcha.script-command}") final String scriptCommand) {
         this.webDriver = webDriver;
         this.url = url;
-        this.userKey = userKey;
         this.scriptCommand = scriptCommand;
     }
 
