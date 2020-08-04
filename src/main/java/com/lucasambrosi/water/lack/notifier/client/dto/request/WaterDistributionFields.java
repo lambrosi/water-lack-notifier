@@ -16,7 +16,7 @@ public class WaterDistributionFields {
     }
 
     public static WaterDistributionFields of(City city) {
-        return new WaterDistributionFields(city.getParameterName(), city.getCode());
+        return new WaterDistributionFields("codMunicipio", city.getCode());
     }
 
     public String getParameterName() {
