@@ -21,25 +21,8 @@ public class CaptchaProvider {
         this.scriptCommand = scriptCommand;
     }
 
-    /*public String generateToken() {
-        webDriver.navigate().to(url);
-
-        this.sleep();
-
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        return (String) js.executeScript(scriptCommand);
-    }
-
-    private void sleep() {
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     public Mono<String> generateToken() {
-        return this.navigate()
+        return this.navigateToUrl()
                 .map(it -> this.sleep())
                 .map(it -> webDriver)
                 .ofType(JavascriptExecutor.class)
@@ -47,7 +30,7 @@ public class CaptchaProvider {
                 .ofType(String.class);
     }
 
-    private Mono<Boolean> navigate() {
+    private Mono<Boolean> navigateToUrl() {
         webDriver.navigate().to(url);
         return Mono.just(true);
     }
