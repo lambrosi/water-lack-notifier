@@ -1,4 +1,4 @@
-package com.lucasambrosi.water.lack.notifier;
+package com.lucasambrosi.water.lack.notifier.service;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
