@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 public class CaptchaProvider {
@@ -20,7 +21,7 @@ public class CaptchaProvider {
         this.scriptCommand = scriptCommand;
     }
 
-    public String generateToken() {
+    /*public String generateToken() {
         webDriver.navigate().to(url);
 
         this.sleep();
@@ -35,5 +36,28 @@ public class CaptchaProvider {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public Mono<String> generateToken() {
+        return this.navigate()
+                .map(it -> this.sleep())
+                .map(it -> webDriver)
+                .ofType(JavascriptExecutor.class)
+                .map(executor -> executor.executeScript(scriptCommand))
+                .ofType(String.class);
+    }
+
+    private Mono<Boolean> navigate() {
+        webDriver.navigate().to(url);
+        return Mono.just(true);
+    }
+
+    private Mono<Boolean> sleep() {
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Mono.just(true);
     }
 }
